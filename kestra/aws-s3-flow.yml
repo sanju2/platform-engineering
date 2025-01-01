@@ -1,0 +1,16 @@
+id: create-s3-bucket-flow
+namespace: example.products
+
+inputs:
+  - id: bucket_name
+    type: STRING
+    defaults: declarative-orchestration-with-kestra
+    required: true
+
+tasks:
+  - id: create_s3_bucket
+    type: io.kestra.plugin.aws.s3.CreateBucket
+    accessKeyId: "{{ secret('AWS_ACCESS_KEY_ID') }}"
+    secretKeyId: "{{ secret('AWS_SECRET_ACCESS_KEY') }}"
+    region: "us-east-2"
+    bucket: "{{ inputs.bucket_name }}"
